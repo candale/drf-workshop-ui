@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MaterialModule } from './material.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -14,8 +15,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+
+    /** CORE & SHARED */
+    CoreModule,
+    SharedModule,
     AppRoutingModule,
-    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
