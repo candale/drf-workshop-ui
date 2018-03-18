@@ -1,2 +1,20 @@
-<board-header></board-header>
-<board-body></board-body>
+<div class="boards">
+  <div class="board" *ngFor="let board of boards">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title [innerHTML]="board.name"></mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="board-body">
+          <board-item *ngFor="let item of board.items" [item]="item"></board-item>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div class="action">
+      <div class="add-button" (click)="addItem()">
+        <i class="material-icons">add</i>
+      </div>
+    </div>
+  </div>
+</div>

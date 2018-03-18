@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'board-header',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-header.component.scss']
 })
 export class BoardHeaderComponent implements OnInit {
+  @Input() board: any;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.board);
   }
-
 }

@@ -1,0 +1,61 @@
+@import './main';
+
+.navigator {
+  height: calc(#{$nav-height} * 2);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+
+  @media #{$l-down} {
+    height: #{$nav-height};
+  }
+
+  .nav {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+  
+    @media #{$m-down} {
+      width: 75%;
+    }
+  
+    @media #{$s-down} {
+      width: 100%;
+    }
+    
+    div {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border-right: 1px solid #757575;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .material-icons {
+        margin: auto;
+      }
+    }
+
+    .task {
+
+    }
+
+    .menu {
+      .material-icons {
+        background-color: mat-color($app-primary, 500);
+        padding: 8px;
+        border-radius: 50%;
+        color: #FFF;
+      }
+    }
+
+    .list {
+
+    }
+  }
+}

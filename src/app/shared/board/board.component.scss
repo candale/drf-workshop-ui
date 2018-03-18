@@ -1,0 +1,32 @@
+@import './main';
+
+.boards {
+  
+  .board {
+
+    mat-card {
+      min-height: 100vh;
+
+      mat-card-content {
+        margin-top: 1em;
+      }
+    }
+
+    .action {
+      position: fixed;
+      bottom: calc(#{$nav-height} + 25px);
+      right: 2em;
+
+      .add-button {
+        cursor: pointer;
+
+        .material-icons {
+          background-color: mat-color($app-accent, 500);
+          color: white;
+          padding: 15px;
+          border-radius: 50%;
+        }
+      }
+    }    
+  }
+}

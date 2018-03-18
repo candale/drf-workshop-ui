@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app.routing';
+import { TaskModule } from './modules/task/task.module';
+import { MenuModule } from './modules/menu/menu.module';
+import { ListModule } from './modules/list/list.module';
 import { AppComponent } from './app.component';
 
 
@@ -19,7 +22,12 @@ import { AppComponent } from './app.component';
     /** CORE & SHARED */
     CoreModule,
     SharedModule,
+    /** ROUTING */
     AppRoutingModule,
+    /** MODULES */
+    TaskModule,
+    MenuModule,
+    ListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

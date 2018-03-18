@@ -1,0 +1,65 @@
+/* main variables */
+
+/* XXS [321, 414] */
+$xxs: 320px !default;
+$xxs-screen-up: 321px !default;
+/* XS [415, 600] */
+$xs: 414px !default;
+$xs-screen-up: 415px !default;
+/* S [601, 992] */
+$s: 600px !default;
+$s-screen-up: 601px !default;
+/* M [993, 1200] */
+$m: 992px !default;
+$m-screen-up: 993px !default;
+/* L [1201, 1550] */
+$l: 1200px !default;
+$l-screen-up: 1201px !default;
+/* XL [1551, 1920] */
+$xl: 1550px !default;
+$xl-screen-up: 1551px !default;
+/* XXL [1920, 4k] */
+$xxl: 1920px !default;
+$xxl-screen-up: 1921px !default;
+
+/* section only */
+
+$xxs-only: "only screen and (min-width : #{$xxs-screen-up}) and (max-width : #{$xs})" !default;
+$xs-only: "only screen and (min-width : #{$xs-screen-up}) and (max-width : #{$s})" !default;
+$m-only: "only screen and (min-width : #{$s-screen-up}) and (max-width : #{$m})" !default;
+$l-only: "only screen and (min-width : #{$m-screen-up}) and (max-width : #{$l})" !default;
+$xl-only: "only screen and (min-width : #{$l-screen-up}) and (max-width : #{$xl})" !default;
+$xxl-only: "only screen and (min-width : #{$xl-screen-up}) and (max-width : #{$xxl})" !default;
+
+/* section up */
+
+$xs-up: "only screen and (min-width: #{$xs-screen-up})" !default;
+$s-up: "only screen and (min-width: #{$s-screen-up})" !default;
+$m-up: "only screen and (min-width: #{$m-screen-up})" !default;
+$l-up: "only screen and (min-width: #{$l-screen-up})" !default;
+$xl-up: "only screen and (min-width: #{$xl-screen-up})" !default;
+
+/* section down */
+
+$xxs-down: "only screen and (max-width: #{$xxs})" !default;
+$xs-down: "only screen and (max-width: #{$xs})" !default;
+$s-down: "only screen and (max-width: #{$s})" !default;
+$m-down: "only screen and (max-width: #{$m})" !default;
+$l-down: "only screen and (max-width: #{$l})" !default;
+$xl-down: "only screen and (max-width: #{$xl})" !default;
+$xxl-down: "only screen and (max-width: #{$xxl})" !default;
+
+/*
+ * Media queries
+ */
+
+@media #{$m-down} {
+  body {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+}

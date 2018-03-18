@@ -1,3 +1,7 @@
-<p>
-  nav works!
-</p>
+<mat-toolbar class="navigator">
+  <div class="nav flex-row flex-around">
+    <div class="task" (click)="changeRoute('task')"><i class="material-icons">done_all</i></div>
+    <div class="menu" (click)="changeRoute('menu')"><i class="material-icons">settings</i></div>
+    <div class="list" (click)="changeRoute('list')"><i class="material-icons">list</i></div>
+  </div>
+</mat-toolbar>

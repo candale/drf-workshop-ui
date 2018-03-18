@@ -20,6 +20,7 @@
     "paths": {
       "@shared": ["app/shared/index"],
       "@core": ["app/core/index"],
+      "@environment": ["environments/environment"],
     }
   }
 }

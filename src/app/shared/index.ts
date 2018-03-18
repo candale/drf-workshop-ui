@@ -1,2 +1,2 @@
+export * from './shared.module';
 export * from './board/board.component';
-export * from './item/item.component';

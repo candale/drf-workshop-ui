@@ -1,0 +1,12 @@
+@import './_material';
+@import './_queries';
+@import './variables';
+
+.nav-height {
+  height: #{$nav-height} !important;
+}
+
+.valign {
+  display: flex !important;
+  align-items: center !important;
+}
