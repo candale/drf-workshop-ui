@@ -1,6 +1,6 @@
 import { environment } from '@environment';
 
-const baseUrl = environment.production ? 'http://localhost:8000/api/' : 'http://192.168.1.177:8000/api/';
+const baseUrl = environment.production ? 'http://mgr-api.florin.me/api/' : 'http://localhost:8000/api/';
 
 export const Settings = {
   api: {
