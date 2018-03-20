@@ -1,0 +1,18 @@
+@import './main';
+
+.action {
+  position: fixed;
+  bottom: calc(#{$nav-height} * 2 + 20px);
+  right: 2em;
+
+  .add-button {
+    cursor: pointer;
+
+    .material-icons {
+      background-color: mat-color($app-accent, 500);
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+    }
+  }
+}

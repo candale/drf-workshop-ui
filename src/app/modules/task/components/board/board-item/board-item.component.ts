@@ -22,6 +22,7 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   animationState: string;
   actionStack: Array<any> = [];
   wrapContainer: HTMLElement;
+  undoCalled: Boolean = false;
 
   constructor(public snackBar: MatSnackBar, private api: ApiService) { }
 
@@ -63,9 +64,17 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   openSnackBar(actionType, id, element) {
     const snackBarRef = this.snackBar.open(actionType, 'Undo', { duration: 10000, panelClass: ['height-60'] });
     snackBarRef.onAction().subscribe(() => {
-      const ref = this.actionStack.find(item => item.id === id);
-      clearTimeout(ref.action);
+      this.undoCalled = true;
       this.wrapContainer.appendChild(element);
+    });
+    snackBarRef.afterDismissed().subscribe(() => {
+      if (this.undoCalled === true) {
+        return;
+      }
+      this.api.removeItem(id).subscribe(() => {
+        console.log('item removed from BACKEND');
+      });
+      this.undoCalled = false;
     });
   }
 

@@ -1,4 +1,9 @@
 @import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Raleway'
+);
+
 @include mat-core();
 
 $app-primary: mat-palette($mat-light-blue);

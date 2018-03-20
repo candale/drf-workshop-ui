@@ -34,9 +34,7 @@ export class ApiService {
   }
 
   removeItem(id) {
-    this.http.delete(Settings.api.item + `${id}/`).subscribe(response => {
-      console.log(response);
-    });
+    return this.http.delete(Settings.api.item + `${id}/`);
   }
 
 }
