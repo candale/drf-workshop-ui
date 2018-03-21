@@ -10,6 +10,7 @@ import { Settings } from '../../settings/settings';
 import { Board } from '../../models/board.model';
 import { Item } from '../../models/item.model';
 import { ItemState } from '../../models/itemState.model';
+import { util } from '../../utils/util';
 
 @Injectable()
 export class ApiService {
@@ -52,6 +53,10 @@ export class ApiService {
     return this.http.get(`${Settings.api.tasks.items}?board=${+boardId}`);
   }
 
+  getItem(id) {
+    return this._currentBoard.items.find(item => item.id === +id);
+  }
+
   removeItem(id) {
     const obs = this.http.delete(Settings.api.tasks.items + `${id}/`).publishLast().refCount();
     obs.subscribe(resp => {
@@ -63,9 +68,25 @@ export class ApiService {
   }
 
   addItem(payload) {
+    if (payload.due_date) {
+      payload.due_date = util.parseDate(payload.due_date);
+    }
     const obs = this.http.post(Settings.api.tasks.items, payload).publishLast().refCount();
     obs.subscribe(resp => {
       this._currentBoard.items.push(new Item(payload));
+      this.currentBoard.next(this._currentBoard);
+    });
+    return obs;
+  }
+
+  editItem(payload, id) {
+    if (payload.due_date) {
+      payload.due_date = util.parseDate(payload.due_date);
+    }
+    const obs = this.http.patch(`${Settings.api.tasks.items}${+id}/`, payload).publishLast().refCount();
+    obs.subscribe(resp => {
+      const index = this._currentBoard.items.findIndex(item => item.id === +id);
+      this._currentBoard.items[index] = new Item(resp);
       this.currentBoard.next(this._currentBoard);
     });
     return obs;

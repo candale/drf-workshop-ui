@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { ApiService, util } from '@core';
+import { Item, ApiService, util } from '@core';
+
+enum State {
+  ADD = 'Add',
+  EDIT = 'Edit',
+}
 
 @Component({
   selector: 'task-add-edit',
@@ -11,25 +16,55 @@ import { ApiService, util } from '@core';
 })
 export class AddEditTaskComponent implements OnInit {
   taskForm: FormGroup;
+  item: Item = null;
+  stateText: string = State.ADD;
 
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
-    this.taskForm = this.fb.group({
-      name: [null, Validators.required],
-      description: [null, ],
-      dueDate: [new Date(), ],
-      priority: [0, Validators.required],
-      board: [this.api.getCurrentBoardValue().id, Validators.required]
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+  ) {
+    this.activeRoute.params.subscribe(params => {
+      if (params['id']) {
+        this.item = this.api.getItem(params['id']);
+        this.stateText = State.EDIT;
+      }
+      this.taskForm = this.fb.group({
+        name: [this.item ? this.item.name : null, Validators.required],
+        description: [this.item ? this.item.description : null, ],
+        due_date: [this.item ? this.item.due_date : null, ],
+        priority: [this.item ? this.item.priority : 0, Validators.required],
+        board: [this.api.getCurrentBoardValue().id, Validators.required]
+      });
     });
   }
 
   ngOnInit() {
+    if (this.item) {
+      this._changeColor(util.getPriorityColor(this.item.priority));
+    }
   }
 
   submit() {
-    this.api.addItem(this.taskForm.value).subscribe(response => {
-      this.router.navigate(['task/list']);
-      console.log(response);
-    });
+    console.log(util.checkEqual(this.item.value, this.taskForm.value));
+    if (this.item) {
+      if (util.checkEqual(this.item.value, this.taskForm.value)) {
+        this.router.navigate(['task/list']);
+      } else {
+        this.api.editItem(this.taskForm.value, this.item.id).subscribe(response => {
+          this.router.navigate(['task/list']);
+        });
+      }
+    } else {
+      this.api.addItem(this.taskForm.value).subscribe(response => {
+        this.router.navigate(['task/list']);
+      });
+    }
+  }
+
+  setToday() {
+    this.taskForm.controls['due_date'].setValue(new Date());
   }
 
   move(event) {

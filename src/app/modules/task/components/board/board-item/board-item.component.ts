@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { trigger, keyframes, animate, transition, state, style } from '@angular/animations';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { kf, kfStrings } from './keyframes';
 
@@ -24,10 +25,10 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   wrapContainer: HTMLElement;
   undoCalled: Boolean = false;
 
-  constructor(public snackBar: MatSnackBar, private api: ApiService) { }
+  constructor(public snackBar: MatSnackBar, private api: ApiService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.item);
+    // console.log(this.item);
   }
 
   ngAfterViewInit() {
@@ -44,7 +45,6 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
     this.animationState = '';
     if (kfStrings.includes(event.fromState)) {
       this.item.hidden = true;
-      console.log(this.item.hidden);
       let msg = '';
       if (event.fromState === kfStrings[0]) {
         msg = '1 item deleted';
@@ -72,7 +72,7 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   }
 
   edit() {
-    console.log('edit func');
+    this.router.navigate([`/task/add-edit/${this.item.id}`]);
   }
 
   markDone() {

@@ -1,5 +1,7 @@
+@import './main';
+
 .content {
-  // height: 90vh;
+  height: 90vh;
 }
 
 .navigator {
@@ -10,5 +12,12 @@
     bottom: 0;
     left: 0;
     text-align: center;
+  }
+}
+
+@media #{$l-up} {
+  .content {
+    width: #{$l-up-width-proc};
+    margin: auto;
   }
 }

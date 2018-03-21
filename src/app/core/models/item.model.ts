@@ -14,6 +14,7 @@ export class Item {
   due_date: Date;
   priority: Priority;
   hidden: Boolean;
+  board: number;
 
   constructor(data) {
     this.id = data.id;
@@ -21,6 +22,17 @@ export class Item {
     this.description = data.description;
     this.due_date = data.due_date ? new Date(data.due_date) : null;
     this.priority = data.priority;
+    this.board = data.board;
     this.hidden = false;
+  }
+
+  get value() {
+    return {
+      name: this.name,
+      description: this.description,
+      due_date: this.due_date,
+      priority: this.priority,
+      board: this.board,
+    };
   }
 }

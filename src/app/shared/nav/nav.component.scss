@@ -1,16 +1,12 @@
 @import './main';
 
 .navigator {
-  height: calc(#{$nav-height} * 2);
+  height: 10vh;
   position: fixed;
   width: 100%;
   bottom: 0;
   left: 0;
   text-align: center;
-
-  @media #{$l-down} {
-    height: #{$nav-height};
-  }
 
   .nav {
     width: 50%;
@@ -57,5 +53,14 @@
     .list {
 
     }
+  }
+}
+
+@media #{$l-up} {
+  .navigator {
+    width: #{$l-up-width-proc};
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 }

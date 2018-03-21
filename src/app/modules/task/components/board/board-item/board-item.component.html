@@ -15,6 +15,7 @@
       </mat-card-header>
       <mat-card-content class="item-content">
         <div class="name" [innerHTML]="item.name"></div>
+        <div class="due-date" [innerHTML]="item.due_date | date"></div>
       </mat-card-content>
     </mat-card>
 </div>

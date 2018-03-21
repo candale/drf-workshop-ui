@@ -9,6 +9,10 @@
     bottom: calc(#{$nav-height} + 20px);
   }
 
+  @media #{$l-up} {
+    right: 18%;
+  }
+
   .add-button {
     cursor: pointer;
 

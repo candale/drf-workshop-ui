@@ -1,9 +1,11 @@
 @import './main';
   
 .board {
+  height: 90vh;
 
   mat-card {
-    min-height: 90vh;
+
+    height: 100%;
 
     mat-card-content {
       margin-top: 1em;

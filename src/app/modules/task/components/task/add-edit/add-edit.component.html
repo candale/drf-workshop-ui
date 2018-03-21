@@ -3,7 +3,7 @@
     <button mat-icon-button routerLink="/task/list">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h2>Add / edit task</h2>
+    <h2><span [innerHTML]="stateText"></span> task</h2>
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="taskForm" (ngSubmit)="submit()">
@@ -15,15 +15,20 @@
         <textarea matInput placeholder="Description..." formControlName="description"></textarea>
       </mat-form-field>
       <mat-divider></mat-divider>
-      <mat-form-field>
-        <input matInput 
-          [matDatepicker]="datepicker" 
-          (click)="datepicker.open()"
-          placeholder="Due date..."
-          readonly="true"
-          formControlName="dueDate">
-        <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
-      </mat-form-field>
+      <div class="flex-row flex-between">
+        <mat-form-field class="custom-datepick">
+          <input matInput 
+            [matDatepicker]="datepicker" 
+            (click)="datepicker.open()"
+            placeholder="Due date..."
+            readonly="true"
+            formControlName="due_date">
+          <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
+        </mat-form-field>
+        <div class="valign today">
+          <button type="button" mat-raised-button (click)="setToday()">Today</button>
+        </div>
+      </div>
       <mat-divider></mat-divider>
       <div>
         <p>Priority</p>
