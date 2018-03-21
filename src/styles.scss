@@ -2,12 +2,12 @@
 @import './assets/scss/main';
 .flex-row {
   display: flex !important;
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 .flex-column {
   display: flex !important;
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .flex-center {

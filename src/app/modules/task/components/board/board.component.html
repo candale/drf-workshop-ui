@@ -1,5 +1,4 @@
-<div class="boards">
-  <div class="board" *ngFor="let board of boards">
+  <div class="board">
     <mat-card>
       <mat-card-header>
         <mat-card-title [innerHTML]="board.name"></mat-card-title>
@@ -7,9 +6,8 @@
       <mat-divider></mat-divider>
       <mat-card-content>
         <div class="board-body">
-          <board-item *ngFor="let item of board.items" [item]="item"></board-item>
+          <board-item *ngFor="let item of items" [item]="item"></board-item>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
-</div>

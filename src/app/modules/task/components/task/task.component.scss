@@ -5,6 +5,10 @@
   bottom: calc(#{$nav-height} * 2 + 20px);
   right: 2em;
 
+  @media #{$l-down} {
+    bottom: calc(#{$nav-height} + 20px);
+  }
+
   .add-button {
     cursor: pointer;
 

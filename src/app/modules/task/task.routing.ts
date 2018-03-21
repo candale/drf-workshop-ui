@@ -5,8 +5,10 @@ import { TaskComponent } from './components/task/task.component';
 import { AddEditTaskComponent } from './components/task/add-edit/add-edit.component';
 
 const routes: Routes = [
-  { path: 'task', component: TaskComponent, children: [
-    { path: ':id', component: AddEditTaskComponent },
+  { path: 'task', children: [
+    { path: 'list', component: TaskComponent },
+    { path: 'add-edit', component: AddEditTaskComponent },
+    { path: 'add-edit/:id', component: AddEditTaskComponent },
   ]},
 ];
 

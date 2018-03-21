@@ -1,3 +1,38 @@
-<p>
-  new works!
-</p>
+<mat-card>
+  <mat-card-header class="flex-column">
+    <button mat-icon-button routerLink="/task/list">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Add / edit task</h2>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="taskForm" (ngSubmit)="submit()">
+      <mat-form-field>
+        <input matInput placeholder="Name..." type="text" formControlName="name">
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <textarea matInput placeholder="Description..." formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <input matInput 
+          [matDatepicker]="datepicker" 
+          (click)="datepicker.open()"
+          placeholder="Due date...">
+        <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <div>
+        <p>Priority</p>
+        <mat-slider class="form-field" min="0" max="5" step="1" tickInterval="1" thumbLabel></mat-slider>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="action">
+        <button mat-raised-button 
+          color="accent"
+          class="submit">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

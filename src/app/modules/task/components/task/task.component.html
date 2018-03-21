@@ -1,6 +1,8 @@
-<mgr-board [boards]="boards"></mgr-board>
-<div class="action">
-  <div class="add-button" (click)="addItem()">
-    <i class="material-icons">add</i>
+<div *ngIf="board">
+  <mgr-board [board]="board"></mgr-board>
+  <div class="action">
+    <div class="add-button" routerLink="/task/add-edit">
+      <i class="material-icons">add</i>
+    </div>
   </div>
 </div>

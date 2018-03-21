@@ -9,32 +9,34 @@ import { Settings } from '../../settings/settings';
 @Injectable()
 export class ApiService {
   taskBoards: BehaviorSubject<any> = new BehaviorSubject(null);
-  listBoards: BehaviorSubject<any> = new BehaviorSubject(null);
+
+  mainBoard: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {
     this.init();
   }
 
   init() {
-    this.http.get(Settings.api.task).subscribe(response => {
+    this.http.get(Settings.api.tasks.boards).subscribe(response => {
+      this.mainBoard.next(response[0]);
       this.taskBoards.next(response);
     });
+  }
 
-    this.http.get(Settings.api.list).subscribe(response => {
-      this.listBoards.next(response);
-    });
+  getMainBoard() {
+    return this.mainBoard.filter(board => board !== null);
   }
 
   getTaskBoards() {
-    return this.taskBoards.filter(item => item !== null);
+    return this.taskBoards.filter(boards => boards !== null);
   }
 
-  getListBoards() {
-    return this.listBoards.filter(item => item !== null);
+  getBoardItems(boardId) {
+    return this.http.get(`${Settings.api.tasks.items}?board=${+boardId}`);
   }
 
   removeItem(id) {
-    return this.http.delete(Settings.api.item + `${id}/`);
+    return this.http.delete(Settings.api.tasks.items + `${id}/`);
   }
 
 }

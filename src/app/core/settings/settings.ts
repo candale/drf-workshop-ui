@@ -5,8 +5,9 @@ const baseUrl = environment.production ? 'http://mgr-api.florin.me/api/' : 'http
 export const Settings = {
   api: {
     base: baseUrl,
-    task: `${baseUrl}task/`,
-    list: `${baseUrl}list/`,
-    item: `${baseUrl}item/`,
+    tasks: {
+      boards: `${baseUrl}task/boards/`,
+      items: `${baseUrl}task/items/`,
+    }
   }
 };

@@ -9,7 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "manifest.json"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -18,10 +19,16 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
+      "serviceWorker": true,
       "styles": [
         "styles.scss",
         "../node_modules/material-design-icons/iconfont/material-icons.css"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "assets/scss/"
+        ]
+      },
       "scripts": [
         "../node_modules/hammerjs/hammer.min.js"
       ],
@@ -29,11 +36,6 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      },
-      "stylePreprocessorOptions": {
-        "includePaths": [
-          "assets/scss/"
-        ]
       }
     }
   ],
@@ -63,6 +65,7 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }

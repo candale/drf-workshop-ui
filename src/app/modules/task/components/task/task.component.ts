@@ -8,13 +8,14 @@ import { ApiService, Board } from '@core';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
-  boards: Array<Board>;
+  board: any = null;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.api.getTaskBoards().subscribe(boards => {
-      this.boards = boards;
+    this.api.getMainBoard().subscribe((board) => {
+      console.log(board);
+      this.board = board;
     });
   }
 }

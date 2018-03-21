@@ -10,6 +10,7 @@ import { TaskModule } from './modules/task/task.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { ListModule } from './modules/list/list.module';
 import { AppComponent } from './app.component';
+import { environment } from '@environment';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     /** CORE & SHARED */
     CoreModule,
     SharedModule,

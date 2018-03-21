@@ -1,0 +1,14 @@
+mat-form-field, .form-field {
+  width: 100%;
+}
+
+.action {
+  width: 100%;
+  text-align: center;
+  
+  .submit {
+    width: 50%;
+    font-weight: bold;
+    margin: 1em auto;
+  }
+}
