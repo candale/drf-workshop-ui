@@ -4,11 +4,13 @@
   height: 90vh;
 
   mat-card {
+    overflow-y: scroll;
 
     height: 100%;
 
     mat-card-content {
       margin-top: 1em;
+      margin-bottom: 5em;
     }
   } 
 }

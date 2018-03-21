@@ -37,21 +37,13 @@
       }
     }
 
-    .task {
-
-    }
-
-    .menu {
+    .active {
       .material-icons {
         background-color: mat-color($app-primary, 500);
         padding: 8px;
         border-radius: 50%;
         color: #FFF;
       }
-    }
-
-    .list {
-
     }
   }
 }

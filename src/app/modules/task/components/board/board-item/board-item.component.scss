@@ -1,7 +1,10 @@
+@import './main';
+
 .item-container {
   margin-bottom: 1em;
   border-right-style: solid;
   border-right-width: 10px;
+  cursor: pointer;
 
   .item-header {
 
@@ -12,5 +15,20 @@
     .name {
 
     }
+
+    .due-date {
+      margin-top: 0.5em;
+      min-height: 1em;
+    }
   }
 }
+
+.past-date {
+  color: #{$danger};
+  font-style: italic;
+}
+
+.today {
+  font-weight: bold;
+}
+

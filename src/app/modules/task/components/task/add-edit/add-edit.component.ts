@@ -47,7 +47,6 @@ export class AddEditTaskComponent implements OnInit {
   }
 
   submit() {
-    console.log(util.checkEqual(this.item.value, this.taskForm.value));
     if (this.item) {
       if (util.checkEqual(this.item.value, this.taskForm.value)) {
         this.router.navigate(['task/list']);

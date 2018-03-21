@@ -72,7 +72,21 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   }
 
   edit() {
-    this.router.navigate([`/task/add-edit/${this.item.id}`]);
+    if (!this.animationState) {
+      this.router.navigate([`/task/add-edit/${this.item.id}`]);
+    }
+  }
+
+  checkDate() {
+
+    if (this.item.due_date) {
+      if (util.parseDate(this.item.due_date) === util.parseDate(new Date())) {
+        return 'today';
+      } else if (this.item.due_date < new Date()) {
+        return 'past-date';
+      }
+    }
+    return 'normal';
   }
 
   markDone() {
