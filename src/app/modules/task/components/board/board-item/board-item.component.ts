@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 
 import { kf, kfStrings } from './keyframes';
 
-import { Item, ApiService } from '@core';
+import { Item, ApiService, util } from '@core';
 
 @Component({
   selector: 'board-item',
@@ -27,6 +27,7 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   constructor(public snackBar: MatSnackBar, private api: ApiService) { }
 
   ngOnInit() {
+    console.log(this.item);
   }
 
   ngAfterViewInit() {
@@ -42,40 +43,36 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   resetAnimationState(event) {
     this.animationState = '';
     if (kfStrings.includes(event.fromState)) {
-      const element = event.element;
-      event.element.remove();
+      this.item.hidden = true;
+      console.log(this.item.hidden);
       let msg = '';
       if (event.fromState === kfStrings[0]) {
         msg = '1 item deleted';
       } else if (event.fromState === kfStrings[1]) {
         msg = '1 item marked DONE';
       }
-      const itemId = +event.element.attributes.value.value;
-      this.actionStack.push({
-        id: itemId,
-        action: setTimeout(() => {
-          this.api.removeItem(itemId);
-        }, 11000)
-      });
-      this.openSnackBar(msg, itemId, element);
+      this.openSnackBar(msg);
     }
   }
 
-  openSnackBar(actionType, id, element) {
+  openSnackBar(actionType) {
     const snackBarRef = this.snackBar.open(actionType, 'Undo', { duration: 10000, panelClass: ['height-60'] });
     snackBarRef.onAction().subscribe(() => {
-      this.undoCalled = true;
-      this.wrapContainer.appendChild(element);
+      this.item.hidden = false;
     });
     snackBarRef.afterDismissed().subscribe(() => {
-      if (this.undoCalled === true) {
-        return;
+      if (this.item.hidden === true) {
+        this.api.removeItem(this.item.id);
       }
-      this.api.removeItem(id).subscribe(() => {
-        console.log('item removed from BACKEND');
-      });
-      this.undoCalled = false;
     });
+  }
+
+  getColor() {
+    return util.getPriorityColor(this.item.priority);
+  }
+
+  edit() {
+    console.log('edit func');
   }
 
   markDone() {

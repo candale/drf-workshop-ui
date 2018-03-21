@@ -13,8 +13,7 @@ export class TaskComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.api.getMainBoard().subscribe((board) => {
-      console.log(board);
+    this.api.getCurrentBoard().subscribe((board) => {
       this.board = board;
     });
   }

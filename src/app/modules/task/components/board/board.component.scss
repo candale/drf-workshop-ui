@@ -1,15 +1,12 @@
 @import './main';
-
-.boards {
   
-  .board {
+.board {
 
-    mat-card {
-      min-height: 90vh;
+  mat-card {
+    min-height: 90vh;
 
-      mat-card-content {
-        margin-top: 1em;
-      }
-    } 
-  }
+    mat-card-content {
+      margin-top: 1em;
+    }
+  } 
 }

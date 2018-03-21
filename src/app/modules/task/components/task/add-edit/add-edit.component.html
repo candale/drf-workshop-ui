@@ -19,19 +19,26 @@
         <input matInput 
           [matDatepicker]="datepicker" 
           (click)="datepicker.open()"
-          placeholder="Due date...">
+          placeholder="Due date..."
+          readonly="true"
+          formControlName="dueDate">
         <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
       </mat-form-field>
       <mat-divider></mat-divider>
       <div>
         <p>Priority</p>
-        <mat-slider class="form-field" min="0" max="5" step="1" tickInterval="1" thumbLabel></mat-slider>
+        <mat-slider class="form-field" 
+          formControlName="priority"
+          min="0" max="5" step="1" 
+          tickInterval="1" thumbLabel
+          (input)="move($event)"></mat-slider>
       </div>
       <mat-divider></mat-divider>
       <div class="action">
         <button mat-raised-button 
           color="accent"
-          class="submit">Submit</button>
+          class="submit"
+          [disabled]="!taskForm.valid">Submit</button>
       </div>
     </form>
   </mat-card-content>

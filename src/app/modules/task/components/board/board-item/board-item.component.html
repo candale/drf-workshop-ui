@@ -1,11 +1,14 @@
-<div class="wrap-container" [attr.id]="'wrap-container-' + item.id">
+<div class="wrap-container" [attr.id]="'wrap-container-' + item.id"
+  [hidden]="item.hidden">
     <mat-card class="item-container"
       [@itemAnimator]="animationState"
       (@itemAnimator.done)="resetAnimationState($event)"
       [attr.id]="'item-' + item.id"
       [attr.value]="item.id"
       (swipeleft)="startAnimationState('slideOutLeft', $event)"
-      (swiperight)="startAnimationState('slideOutRight', $event)">
+      (swiperight)="startAnimationState('slideOutRight', $event)"
+      [style.border-right-color]="getColor()"
+      (click)="edit()">
       
       <mat-card-header class="item-header">
     

@@ -3,3 +3,6 @@ export * from './settings/settings';
 
 export * from './models/board.model';
 export * from './models/item.model';
+export * from './models/itemState.model';
+
+export * from './utils/util';

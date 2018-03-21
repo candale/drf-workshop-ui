@@ -11,16 +11,21 @@ import { Board, Item, ApiService } from '@core';
 })
 export class BoardComponent implements OnInit {
   @Input() board: Board;
-  items: Array<Item>;
 
   constructor(private api: ApiService) {
   }
 
   ngOnInit() {
-    console.log(this.board);
-    this.api.getBoardItems(this.board.id).subscribe((items: Array<Item>) => {
-      this.items = items;
-    });
+    /** SORT Items list */
+    this.board.items.sort(this._descending);
+  }
+
+  _descending(a: Item, b: Item) {
+    return b.priority - a.priority;
+  }
+
+  _ascending(a: Item, b: Item) {
+    return a.priority - b.priority;
   }
 
 }

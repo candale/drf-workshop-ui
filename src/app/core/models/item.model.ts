@@ -13,6 +13,7 @@ export class Item {
   description: string;
   due_date: Date;
   priority: Priority;
+  hidden: Boolean;
 
   constructor(data) {
     this.id = data.id;
@@ -20,5 +21,6 @@ export class Item {
     this.description = data.description;
     this.due_date = data.due_date ? new Date(data.due_date) : null;
     this.priority = data.priority;
+    this.hidden = false;
   }
 }
