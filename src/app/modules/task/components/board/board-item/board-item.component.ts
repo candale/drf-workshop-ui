@@ -22,17 +22,14 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   @Input() item: Item;
   animationState: string;
   actionStack: Array<any> = [];
-  wrapContainer: HTMLElement;
   undoCalled: Boolean = false;
 
   constructor(public snackBar: MatSnackBar, private api: ApiService, private router: Router) { }
 
   ngOnInit() {
-    // console.log(this.item);
   }
 
   ngAfterViewInit() {
-    this.wrapContainer = <HTMLElement>document.querySelector(`#wrap-container-${this.item.id}`);
   }
 
   startAnimationState(stateName, event) {

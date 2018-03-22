@@ -1,12 +1,29 @@
-  <div class="board">
+  <div class="board" *ngIf="board" [class.loading]="animationState">
     <mat-card>
-      <mat-card-header>
-        <mat-card-title [innerHTML]="board.name"></mat-card-title>
+      <mat-card-header
+        [@itemAnimator]="animationState"
+        (@itemAnimator.done)="resetAnimationState($event)"
+        (swipeleft)="startAnimationState('next', $event)"
+        (swiperight)="startAnimationState('previous', $event)">
+        <div class="title flex-row">
+          <div class="previous" (click)="startAnimationState('previous', $event)">
+            <i class="material-icons">arrow_back</i>
+          </div>
+          <div class="text flex-2" [innerHTML]="board.name"></div>
+          <div class="next" (click)="startAnimationState('next', $event)">
+            <i class="material-icons">arrow_forward</i>
+          </div>
+        </div>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content>
         <div class="board-body">
           <board-item *ngFor="let item of board.items" [item]="item"></board-item>
+        </div>
+        <div class="action">
+          <div class="add-button" routerLink="/task/add-edit">
+            <i class="material-icons">add</i>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

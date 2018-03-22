@@ -2,15 +2,65 @@
   
 .board {
   height: 90vh;
+  
+  &.loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
   mat-card {
     overflow-y: scroll;
 
     height: 100%;
 
+    mat-card-header {
+      width: 100%;
+      text-align: center;
+      width: 100%;
+
+      .mat-card-header-text {
+        display: none;
+        margin: 0;
+      }
+
+      .title {
+        width: 100%;
+        margin: 1em auto;
+      }
+
+      .next, .previous {
+        cursor: pointer;
+      }
+    }
+
     mat-card-content {
       margin-top: 1em;
       margin-bottom: 5em;
+
+      .action {
+        position: fixed;
+        bottom: calc(#{$nav-height} * 2 + 20px);
+        right: 2em;
+
+        @media #{$l-down} {
+          bottom: calc(#{$nav-height} + 20px);
+        }
+
+        @media #{$l-up} {
+          right: 18%;
+        }
+
+        .add-button {
+          cursor: pointer;
+
+          .material-icons {
+            background-color: mat-color($app-accent, 500);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+          }
+        }
+      }
     }
   } 
 }

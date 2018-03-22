@@ -15,6 +15,7 @@ import { util } from '../../utils/util';
 @Injectable()
 export class ApiService {
   taskBoards: BehaviorSubject<any> = new BehaviorSubject(null);
+  _taskBoards: Array<Board>;
   currentBoard: BehaviorSubject<Board> = new BehaviorSubject(null);
   _currentBoard: Board;
 
@@ -23,17 +24,9 @@ export class ApiService {
   }
 
   init() {
-    this.http.get(Settings.api.tasks.boards).subscribe(response => {
-      const board: Board = response[0];
-      this.getBoardItems(board.id).subscribe((items: Array<Item>) => {
-        items.forEach(item => {
-          item = new Item(item);
-        });
-        board.items = items;
-        this._currentBoard = new Board(board);
-        this.currentBoard.next(this._currentBoard);
-      });
-      this.taskBoards.next(response);
+    this.http.get(Settings.api.tasks.boards).subscribe((response: Array<Board>) => {
+      this._taskBoards = response;
+      this._newBoard(response[0]);
     });
   }
 
@@ -45,6 +38,35 @@ export class ApiService {
     return this.currentBoard.getValue();
   }
 
+  getPreviousBoard() {
+    const response = new BehaviorSubject(null);
+    const index = this._taskBoards.findIndex(item => item.id === this._currentBoard.id);
+    if (index !== 0) {
+      this._newBoard(this._taskBoards[index - 1]);
+      this.currentBoard.subscribe(s => {
+        response.next(true);
+      });
+    } else {
+      response.next(false);
+    }
+    return response.filter(item => item !== null);
+  }
+
+  getNextBoard() {
+    const response = new BehaviorSubject(null);
+    const index = this._taskBoards.findIndex(item => item.id === this._currentBoard.id);
+    if (index < this._taskBoards.length - 1) {
+      this._newBoard(this._taskBoards[index + 1]);
+      this.currentBoard.subscribe(s => {
+        response.next(true);
+      });
+    } else {
+      response.next(false);
+    }
+    return response.filter(item => item !== null);
+  }
+
+  /** TODO:  */
   getTaskBoards() {
     return this.taskBoards.filter(boards => boards !== null);
   }
@@ -52,6 +74,19 @@ export class ApiService {
   getBoardItems(boardId) {
     return this.http.get(`${Settings.api.tasks.items}?board=${+boardId}`);
   }
+
+  private _newBoard(board: Board) {
+    this.getBoardItems(board.id).subscribe((items: Array<Item>) => {
+      items.forEach(item => {
+        item = new Item(item);
+      });
+      board.items = items;
+      this._currentBoard = new Board(board);
+      this.currentBoard.next(this._currentBoard);
+    });
+  }
+
+  /** Item functions */
 
   getItem(id) {
     return this._currentBoard.items.find(item => item.id === +id);
@@ -73,7 +108,7 @@ export class ApiService {
     }
     const obs = this.http.post(Settings.api.tasks.items, payload).publishLast().refCount();
     obs.subscribe(resp => {
-      this._currentBoard.items.push(new Item(payload));
+      this._currentBoard.items.push(new Item(resp));
       this.currentBoard.next(this._currentBoard);
     });
     return obs;
