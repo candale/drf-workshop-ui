@@ -46,6 +46,8 @@ export class AddEditTaskComponent implements OnInit {
     }
   }
 
+  get dueDate() { return this.taskForm.get('due_date').value; }
+
   submit() {
     if (this.item) {
       if (util.checkEqual(this.item.value, this.taskForm.value)) {
@@ -64,6 +66,10 @@ export class AddEditTaskComponent implements OnInit {
 
   setToday() {
     this.taskForm.controls['due_date'].setValue(new Date());
+  }
+
+  removeDate() {
+    this.taskForm.controls['due_date'].setValue(null);
   }
 
   move(event) {

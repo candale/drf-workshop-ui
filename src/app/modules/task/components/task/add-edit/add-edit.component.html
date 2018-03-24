@@ -25,8 +25,13 @@
             formControlName="due_date">
           <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
         </mat-form-field>
-        <div class="valign today">
-          <button type="button" mat-raised-button (click)="setToday()">Today</button>
+        <div class="valign extra">
+          <div class="remove" (click)="removeDate()" [hidden]="dueDate === null">
+            <i class="material-icons">close</i>
+          </div>
+          <div class="today">
+            <button type="button" mat-raised-button (click)="setToday()">Today</button>
+          </div>
         </div>
       </div>
       <mat-divider></mat-divider>

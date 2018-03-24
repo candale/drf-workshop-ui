@@ -1,11 +1,28 @@
+@import './main';
+
 mat-form-field, .form-field {
   width: 100%;
   margin: 0.5em auto 0 auto;
 }
 
 .custom-datepick {
-  width: 80%;
   margin:0.5em 0;
+
+  @media #{$xxs-down} {
+    width: 50%;
+  }
+}
+
+.extra {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .remove {
+    position: relative;
+    right: 20px;
+    cursor: pointer;
+  }
 }
 
 .action {
