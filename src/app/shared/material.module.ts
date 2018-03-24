@@ -11,7 +11,9 @@ import {
   MatSliderModule,
   MatButtonModule,
   MatIconModule,
+  DateAdapter,
 } from '@angular/material';
+import { CustomDateAdapter } from './date-adapter/date-adapter';
 
 @NgModule({
   imports: [
@@ -26,6 +28,9 @@ import {
     MatSliderModule,
     MatButtonModule,
     MatIconModule,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: CustomDateAdapter },
   ],
   exports: [
     MatToolbarModule,
