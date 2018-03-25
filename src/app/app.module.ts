@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { MenuModule } from './modules/menu/menu.module';
 import { ListModule } from './modules/list/list.module';
 import { AppComponent } from './app.component';
 import { environment } from '@environment';
+import { CustomHammerConfig } from './hammerjs.config';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { environment } from '@environment';
     MenuModule,
     ListModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig, }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
