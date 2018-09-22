@@ -1,10 +1,9 @@
+
+import {filter, publishLast, refCount} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishLast';
+import { BehaviorSubject } from 'rxjs';
 
 import { Settings } from '../../settings/settings';
 import { Board } from '../../models/board.model';
@@ -31,7 +30,7 @@ export class ApiService {
   }
 
   getCurrentBoard() {
-    return this.currentBoard.filter(board => board !== null);
+    return this.currentBoard.pipe(filter(board => board !== null));
   }
 
   getCurrentBoardValue() {
@@ -49,7 +48,7 @@ export class ApiService {
     } else {
       response.next(false);
     }
-    return response.filter(item => item !== null);
+    return response.pipe(filter(item => item !== null));
   }
 
   getNextBoard() {
@@ -63,12 +62,12 @@ export class ApiService {
     } else {
       response.next(false);
     }
-    return response.filter(item => item !== null);
+    return response.pipe(filter(item => item !== null));
   }
 
   /** TODO:  */
   getTaskBoards() {
-    return this.taskBoards.filter(boards => boards !== null);
+    return this.taskBoards.pipe(filter(boards => boards !== null));
   }
 
   getBoardItems(boardId) {
@@ -93,7 +92,7 @@ export class ApiService {
   }
 
   removeItem(id) {
-    const obs = this.http.delete(Settings.api.tasks.items + `${id}/`).publishLast().refCount();
+    const obs = this.http.delete(Settings.api.tasks.items + `${id}/`).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
       const index = this._currentBoard.items.findIndex(item => item.id === +id);
       this._currentBoard.items.splice(index, 1);
@@ -106,7 +105,7 @@ export class ApiService {
     if (payload.due_date) {
       payload.due_date = util.parseDate(payload.due_date);
     }
-    const obs = this.http.post(Settings.api.tasks.items, payload).publishLast().refCount();
+    const obs = this.http.post(Settings.api.tasks.items, payload).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
       this._currentBoard.items.push(new Item(resp));
       this.currentBoard.next(this._currentBoard);
@@ -118,7 +117,7 @@ export class ApiService {
     if (payload.due_date) {
       payload.due_date = util.parseDate(payload.due_date);
     }
-    const obs = this.http.patch(`${Settings.api.tasks.items}${+id}/`, payload).publishLast().refCount();
+    const obs = this.http.patch(`${Settings.api.tasks.items}${+id}/`, payload).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
       const index = this._currentBoard.items.findIndex(item => item.id === +id);
       this._currentBoard.items[index] = new Item(resp);
@@ -128,8 +127,8 @@ export class ApiService {
   }
 
   markItemAsDone(id) {
-    const obs = this.http.patch(Settings.api.tasks.items + `${id}/`, {state: ItemState.DONE})
-      .publishLast().refCount();
+    const obs = this.http.patch(Settings.api.tasks.items + `${id}/`, {state: ItemState.DONE}).pipe(
+      publishLast(),refCount(),);
     obs.subscribe(resp => {
       const index = this._currentBoard.items.findIndex(item => item.id === +id);
       this._currentBoard.items.splice(index, 1);

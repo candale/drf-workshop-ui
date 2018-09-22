@@ -3,7 +3,7 @@ import { trigger, keyframes, animate, transition, state, style } from '@angular/
 
 import { kf, kfTypes } from './keyframes';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Board, Item, ApiService } from '@core';
 

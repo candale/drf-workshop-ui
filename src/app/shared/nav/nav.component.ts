@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'mgr-nav',
@@ -10,9 +11,10 @@ export class NavComponent implements OnInit {
   active: String = '';
 
   constructor(private router: Router, private activeRoute: ActivatedRoute) {
-    this.router.events.filter(url => url instanceof NavigationEnd).subscribe((navigation: NavigationEnd) => {
+    this.router.events.pipe(filter(url => url instanceof NavigationEnd))
+    .subscribe((navigation: NavigationEnd) => {
       this.active = navigation.url;
-    });
+    })
     // this.router.url
   }
 
