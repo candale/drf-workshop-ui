@@ -1,4 +1,4 @@
-<mat-toolbar class="navigator">
+<mat-toolbar class="navigator" [class.visible]="visible | async">
   <div class="nav flex-row flex-around">
     <div class="task" (click)="changeRoute('task/list')"
       [ngClass]="{'active': active.includes('task')}">

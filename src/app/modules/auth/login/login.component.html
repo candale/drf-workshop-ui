@@ -1,3 +1,19 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <mat-card>
+    <h3 [innerHTML]="login.login"></h3>
+    <form class="form-container" [formGroup]="loginForm" (ngSubmit)="submitForm()" [class.loading]="isSubmitting">
+      <mat-form-field>
+        <mat-label for="loginForm_email" translate [innerHTML]="login.email"></mat-label>
+        <input matInput formControlName="email" id="loginForm_email" type="email" />
+        <div class="helper-text error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <p translate [innerHTML]="login.error"></p>
+        </div>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="loginForm_password" translate [innerHTML]="login.password"></mat-label>
+        <input matInput formControlName="password" id="loginForm_password" class="validate" type="password" minlength="6" />
+      </mat-form-field>
+      <button mat-raised-button [innerHTML]="login.login" color="primary"></button>
+    </form>
+  </mat-card>
+</div>

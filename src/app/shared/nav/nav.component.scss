@@ -1,12 +1,17 @@
 @import './main';
 
 .navigator {
+  display: none;
   height: 10vh;
   position: fixed;
   width: 100%;
   bottom: 0;
   left: 0;
   text-align: center;
+
+  &.visible {
+    display: block;
+  }
 
   .nav {
     width: 50%;

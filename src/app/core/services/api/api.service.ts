@@ -24,6 +24,7 @@ export class ApiService {
 
   init() {
     this.http.get(Settings.api.tasks.boards).subscribe((response: Array<Board>) => {
+      console.log(response);
       this._taskBoards = response;
       this._newBoard(response[0]);
     });

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../../models/user.model';
 import { Settings } from '../../settings/settings';
-import { filter } from 'rxjs/operators';
+import { filter, publishLast, refCount } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class AuthService {
     return this.user.asObservable().pipe(filter(item => item !== null));
   }
 
-  public isLoggedInObservalbe(): Observable<boolean> {
+  public isLoggedInObservable(): Observable<boolean> {
     return this.loggedIn.asObservable().pipe(filter(item => item !== false));
   }
 
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   public login(email, password) {
-    this.http.post(
+    const call = this.http.post(
       /** URL */
       Settings.api.auth.login,
       /** PAYLOAD */
@@ -45,9 +45,13 @@ export class AuthService {
         email: email,
         password: password,
       },
-    ).subscribe(userData => {
+    ).pipe(publishLast(), refCount());
+    call.subscribe(userData => {
+      userData['token'] = userData['key'];
+      delete userData['key'];
       window.localStorage.setItem('user', JSON.stringify(userData));
       this.user.next(new User(userData));
-    })
+    });
+    return call;
   }
 }
