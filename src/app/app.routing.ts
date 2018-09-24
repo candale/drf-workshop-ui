@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
-const appRoutes: Routes = [];
+const appRoutes: Routes = [
+  /** replace with home or smth */
+  { path: '', redirectTo: '/task/list', pathMatch: 'full' }
+];
 
 @NgModule({
   imports: [ RouterModule.forRoot(appRoutes, { enableTracing: false }) ],

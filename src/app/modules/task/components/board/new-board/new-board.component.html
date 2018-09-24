@@ -1,0 +1,18 @@
+<mat-card>
+    <div class="text no-boards" *ngIf="noBoards">
+      <h3>You have no boards.</h3>
+      <h4>Add a new board.</h4>
+    </div>
+    <div class="text" *ngIf="!noBoards">
+      <h2>Add a new board</h2>
+    </div>
+    <mat-form-field>
+        <input matInput [(ngModel)]="newBoardName">
+        <mat-label>Board name</mat-label>
+      </mat-form-field>
+      <div class="action">
+        <button mat-fab (click)="addBoard()" [disabled]="!newBoardName">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+  </mat-card>

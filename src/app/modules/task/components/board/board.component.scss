@@ -1,6 +1,6 @@
 @import './main';
   
-.board {
+.board, .no-board {
   height: 90vh;
   
   &.loading {

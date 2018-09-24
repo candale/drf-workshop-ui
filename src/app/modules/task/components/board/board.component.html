@@ -4,7 +4,8 @@
         [@itemAnimator]="animationState"
         (@itemAnimator.done)="resetAnimationState($event)"
         (swipeleft)="startAnimationState('next', $event)"
-        (swiperight)="startAnimationState('previous', $event)">
+        (swiperight)="startAnimationState('previous', $event)"
+        (press)="openDrawer($event)">
         <div class="title flex-row">
           <div class="previous" (click)="startAnimationState('previous', $event)">
             <i class="material-icons">arrow_back</i>
@@ -27,4 +28,7 @@
         </div>
       </mat-card-content>
     </mat-card>
+  </div>
+  <div class="no-board" *ngIf="noBoards">
+    <app-new-board [noBoards]="true"></app-new-board>
   </div>

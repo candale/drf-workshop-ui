@@ -6,6 +6,8 @@ import { kf, kfTypes } from './keyframes';
 import { Observable } from 'rxjs';
 
 import { Board, Item, ApiService } from '@core';
+import { MatBottomSheet } from '@angular/material';
+import { DrawerComponent } from './drawer/drawer.component';
 
 @Component({
   selector: 'mgr-board',
@@ -20,9 +22,13 @@ import { Board, Item, ApiService } from '@core';
 })
 export class BoardComponent implements OnInit {
   board: Board = null;
+  noBoards: boolean = false;
   animationState: string = null;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private drawer: MatBottomSheet) {
+    this.api.getTaskBoards().subscribe(boards => {
+      boards.length === 0 ? this.noBoards = true : this.noBoards = false;
+    });
     this.getCurrentBoard();
   }
 
@@ -57,6 +63,10 @@ export class BoardComponent implements OnInit {
 
   resetAnimationState(event) {
     this.animationState = null;
+  }
+
+  openDrawer(event) {
+    this.drawer.open(DrawerComponent);
   }
 
   _descending(a: Item, b: Item) {

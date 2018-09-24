@@ -14,7 +14,7 @@ import { util } from '../../utils/util';
 @Injectable()
 export class ApiService {
   taskBoards: BehaviorSubject<any> = new BehaviorSubject(null);
-  _taskBoards: Array<Board>;
+  _taskBoards: Array<Board> = [];
   currentBoard: BehaviorSubject<Board> = new BehaviorSubject(null);
   _currentBoard: Board;
 
@@ -24,7 +24,11 @@ export class ApiService {
 
   init() {
     this.http.get(Settings.api.tasks.boards).subscribe((response: Array<Board>) => {
-      console.log(response);
+      this.taskBoards.next(response);
+      if (!response.length) {
+        console.log('0 boards');
+        return;
+      }
       this._taskBoards = response;
       this._newBoard(response[0]);
     });
@@ -136,5 +140,16 @@ export class ApiService {
       this.currentBoard.next(this._currentBoard);
     });
     return obs;
+  }
+
+  addBoard(payload) {
+    const call = this.http.post(Settings.api.tasks.boards, payload).pipe(publishLast(), refCount());
+    call.subscribe(response => {
+      const board = new Board(response);
+      this._taskBoards.push(board);
+      this.taskBoards.next(this._taskBoards);
+      this._newBoard(board);
+    })
+    return call;
   }
 }

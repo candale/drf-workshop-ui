@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   public isLoggedInObservable(): Observable<boolean> {
-    return this.loggedIn.asObservable().pipe(filter(item => item !== false));
+    return this.loggedIn.asObservable();
   }
 
   public isLoggedIn(): boolean {

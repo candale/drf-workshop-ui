@@ -9,6 +9,8 @@ import { BoardItemComponent } from './components/board/board-item/board-item.com
 import { TaskComponent } from './components/task/task.component';
 import { Board } from '@core';
 import { AddEditTaskComponent } from './components/task/add-edit/add-edit.component';
+import { NewBoardComponent } from './components/board/new-board/new-board.component';
+import { DrawerComponent } from './components/board/drawer/drawer.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,11 @@ import { AddEditTaskComponent } from './components/task/add-edit/add-edit.compon
     BoardItemComponent,
     TaskComponent,
     AddEditTaskComponent,
+    NewBoardComponent,
+    DrawerComponent,
+  ],
+  entryComponents: [
+    DrawerComponent,
   ]
 })
 export class TaskModule { }
