@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit {
     this.api.getCurrentBoard().subscribe((board) => {
       this.board = board;
       /** SORT Items list */
-      if (this.board.items) {
+      if (this.board && this.board.items) {
         this.board.items.sort(this._descending);
       }
     });

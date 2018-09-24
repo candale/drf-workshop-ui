@@ -10,7 +10,7 @@ import { TaskComponent } from './components/task/task.component';
 import { Board } from '@core';
 import { AddEditTaskComponent } from './components/task/add-edit/add-edit.component';
 import { NewBoardComponent } from './components/board/new-board/new-board.component';
-import { DrawerComponent } from './components/board/drawer/drawer.component';
+import { DrawerComponent, ChangeNameDialog } from './components/board/drawer/drawer.component';
 
 @NgModule({
   imports: [
@@ -26,9 +26,11 @@ import { DrawerComponent } from './components/board/drawer/drawer.component';
     AddEditTaskComponent,
     NewBoardComponent,
     DrawerComponent,
+    ChangeNameDialog,
   ],
   entryComponents: [
     DrawerComponent,
+    ChangeNameDialog,
   ]
 })
 export class TaskModule { }

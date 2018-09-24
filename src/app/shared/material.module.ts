@@ -14,6 +14,7 @@ import {
   MatListModule,
   DateAdapter,
   MatBottomSheetModule,
+  MatDialogModule,
 } from '@angular/material';
 import { CustomDateAdapter } from './date-adapter/date-adapter';
 
@@ -32,6 +33,7 @@ import { CustomDateAdapter } from './date-adapter/date-adapter';
     MatIconModule,
     MatListModule,
     MatBottomSheetModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: CustomDateAdapter },
@@ -50,6 +52,7 @@ import { CustomDateAdapter } from './date-adapter/date-adapter';
     MatIconModule,
     MatListModule,
     MatBottomSheetModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule { }

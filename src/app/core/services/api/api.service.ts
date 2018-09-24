@@ -15,9 +15,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 @Injectable()
 export class ApiService {
   taskBoards: BehaviorSubject<any> = new BehaviorSubject(null);
-  _taskBoards: Array<Board> = [];
   currentBoard: BehaviorSubject<Board> = new BehaviorSubject(null);
-  _currentBoard: Board;
 
   constructor(private http: HttpClient) {
     this.init();
@@ -30,7 +28,7 @@ export class ApiService {
         console.log('0 boards');
         return;
       }
-      this._taskBoards = response;
+      this.taskBoards.next(response);
       this._newBoard(response[0]);
     });
   }
@@ -45,9 +43,9 @@ export class ApiService {
 
   getPreviousBoard() {
     const response = new BehaviorSubject(null);
-    const index = this._taskBoards.findIndex(item => item.id === this._currentBoard.id);
+    const index = this.taskBoards.getValue().findIndex(item => item.id === this.currentBoard.getValue().id);
     if (index !== 0) {
-      this._newBoard(this._taskBoards[index - 1]);
+      this._newBoard(this.taskBoards.getValue()[index - 1]);
       this.currentBoard.subscribe(s => {
         response.next(true);
       });
@@ -59,9 +57,9 @@ export class ApiService {
 
   getNextBoard() {
     const response = new BehaviorSubject(null);
-    const index = this._taskBoards.findIndex(item => item.id === this._currentBoard.id);
-    if (index < this._taskBoards.length - 1) {
-      this._newBoard(this._taskBoards[index + 1]);
+    const index = this.taskBoards.getValue().findIndex(item => item.id === this.currentBoard.getValue().id);
+    if (index < this.taskBoards.getValue().length - 1) {
+      this._newBoard(this.taskBoards.getValue()[index + 1]);
       this.currentBoard.subscribe(s => {
         response.next(true);
       });
@@ -75,16 +73,18 @@ export class ApiService {
   getTaskBoards() {
     return this.taskBoards.pipe(
       filter(board => board !== null), 
-      tap(boards => {
-        boards.forEach((board, index) => {
-          board.order = index + 1;
-        })
-      })
+      tap(boards => this.createBoardsOrder(boards))
     );
   }
 
   getBoardItems(boardId) {
     return this.http.get(`${Settings.api.tasks.items}?board=${+boardId}`);
+  }
+
+  private createBoardsOrder(boards) {
+    boards.forEach((board, index) => {
+      board.order = index + 1;
+    });
   }
 
   private _newBoard(board: Board) {
@@ -93,23 +93,22 @@ export class ApiService {
         item = new Item(item);
       });
       board.items = items;
-      this._currentBoard = new Board(board);
-      this.currentBoard.next(this._currentBoard);
+      this.currentBoard.next(new Board(board));
     });
   }
 
   /** Item functions */
 
   getItem(id) {
-    return this._currentBoard.items.find(item => item.id === +id);
+    return this.currentBoard.getValue().items.find(item => item.id === +id);
   }
 
   removeItem(id) {
     const obs = this.http.delete(Settings.api.tasks.items + `${id}/`).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
-      const index = this._currentBoard.items.findIndex(item => item.id === +id);
-      this._currentBoard.items.splice(index, 1);
-      this.currentBoard.next(this._currentBoard);
+      const index = this.currentBoard.getValue().items.findIndex(item => item.id === +id);
+      this.currentBoard.getValue().items.splice(index, 1);
+      this.currentBoard.next(this.currentBoard.getValue());
     });
     return obs;
   }
@@ -120,8 +119,8 @@ export class ApiService {
     }
     const obs = this.http.post(Settings.api.tasks.items, payload).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
-      this._currentBoard.items.push(new Item(resp));
-      this.currentBoard.next(this._currentBoard);
+      this.currentBoard.getValue().items.push(new Item(resp));
+      this.currentBoard.next(this.currentBoard.getValue());
     });
     return obs;
   }
@@ -132,9 +131,9 @@ export class ApiService {
     }
     const obs = this.http.patch(`${Settings.api.tasks.items}${+id}/`, payload).pipe(publishLast(),refCount(),);
     obs.subscribe(resp => {
-      const index = this._currentBoard.items.findIndex(item => item.id === +id);
-      this._currentBoard.items[index] = new Item(resp);
-      this.currentBoard.next(this._currentBoard);
+      const index = this.currentBoard.getValue().items.findIndex(item => item.id === +id);
+      this.currentBoard.getValue().items[index] = new Item(resp);
+      this.currentBoard.next(this.currentBoard.getValue());
     });
     return obs;
   }
@@ -143,9 +142,9 @@ export class ApiService {
     const obs = this.http.patch(Settings.api.tasks.items + `${id}/`, {state: ItemState.DONE}).pipe(
       publishLast(),refCount(),);
     obs.subscribe(resp => {
-      const index = this._currentBoard.items.findIndex(item => item.id === +id);
-      this._currentBoard.items.splice(index, 1);
-      this.currentBoard.next(this._currentBoard);
+      const index = this.currentBoard.getValue().items.findIndex(item => item.id === +id);
+      this.currentBoard.getValue().items.splice(index, 1);
+      this.currentBoard.next(this.currentBoard.getValue());
     });
     return obs;
   }
@@ -154,10 +153,45 @@ export class ApiService {
     const call = this.http.post(Settings.api.tasks.boards, payload).pipe(publishLast(), refCount());
     call.subscribe(response => {
       const board = new Board(response);
-      this._taskBoards.push(board);
-      this.taskBoards.next(this._taskBoards);
+      this.taskBoards.getValue().push(board);
+      this.taskBoards.next(this.taskBoards.getValue());
       this._newBoard(board);
     })
+    return call;
+  }
+
+  editBoardName(name) {
+    const call = this.http.patch(Settings.api.tasks.boards + `${this.currentBoard.getValue().id}/`, {name: name})
+    .pipe(publishLast(), refCount());
+    call.subscribe(result => {
+      const boards = this.taskBoards.getValue();
+      const index = boards.findIndex(item => item.id === this.currentBoard.getValue().id);
+      boards[index].name = result.name;
+      this.currentBoard.getValue().name = result.name;
+      this.taskBoards.next(boards);
+      this.currentBoard.next(this.currentBoard.getValue());
+    });
+    return call;
+  }
+
+  deleteBoard() {
+    const call = this.http.delete(Settings.api.tasks.boards + `${this.currentBoard.getValue().id}/`)
+    .pipe(publishLast(), refCount());
+    call.subscribe(result => {
+      const boards: Array<Board> = this.taskBoards.getValue(); 
+      const currentBoardId = this.currentBoard.getValue().id;
+      const index = this.taskBoards.getValue().findIndex(item => item.id === currentBoardId);
+      boards.splice(index, 1);
+      this.createBoardsOrder(boards);
+      this.taskBoards.next(boards);
+      if (boards.length) {
+        this.currentBoard.next(boards[0]);
+      }
+      else {
+        this.currentBoard.next(undefined);
+        console.log('there are no more boards!');
+      }
+    });
     return call;
   }
 }
