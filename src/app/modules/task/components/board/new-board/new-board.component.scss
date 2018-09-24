@@ -2,7 +2,6 @@
 
 mat-card {
     height: 100%;
-
     .back-btn {
         padding: 1em;
         
@@ -15,13 +14,14 @@ mat-card {
     }
 
     .content {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         text-align: center;
 
+        .text {
+            margin-top: 6em;
+        }
+
         mat-form-field {
+            width: 100%;
             @media #{$l-up} {
                 width: 50%;
                 margin: 0 auto;
