@@ -1,4 +1,9 @@
 @import './main';
+
+.small-text {
+  font-size: 12px;
+  font-weight: bold;
+}
   
 .board, .no-board {
   height: 90vh;
@@ -9,14 +14,15 @@
   }
 
   mat-card {
-    overflow-y: scroll;
-
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     mat-card-header {
       width: 100%;
       text-align: center;
       width: 100%;
+      min-height: 60px;
 
       .mat-card-header-text {
         display: none;
@@ -33,9 +39,14 @@
       }
     }
 
+    mat-divider {
+      position: relative;
+    }
+
     mat-card-content {
       margin-top: 1em;
       margin-bottom: 5em;
+      overflow-y: auto;
 
       .action {
         position: fixed;

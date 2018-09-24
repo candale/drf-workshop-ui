@@ -1,4 +1,8 @@
 <mat-card>
+  <div class="back-btn" *ngIf="!noBoards">
+    <i class="material-icons" (click)="goBack()">arrow_back</i>
+  </div>
+  <div class="content">
     <div class="text no-boards" *ngIf="noBoards">
       <h3>You have no boards.</h3>
       <h4>Add a new board.</h4>
@@ -7,12 +11,13 @@
       <h2>Add a new board</h2>
     </div>
     <mat-form-field>
-        <input matInput [(ngModel)]="newBoardName">
-        <mat-label>Board name</mat-label>
-      </mat-form-field>
-      <div class="action">
-        <button mat-fab (click)="addBoard()" [disabled]="!newBoardName">
-          <i class="material-icons">add</i>
-        </button>
-      </div>
-  </mat-card>
+      <input matInput [(ngModel)]="newBoardName">
+      <mat-label>Board name</mat-label>
+    </mat-form-field>
+    <div class="action">
+      <button mat-fab (click)="addBoard()" [disabled]="!newBoardName">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
+  </div>
+</mat-card>

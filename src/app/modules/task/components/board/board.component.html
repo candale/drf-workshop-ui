@@ -10,7 +10,10 @@
           <div class="previous" (click)="startAnimationState('previous', $event)">
             <i class="material-icons">arrow_back</i>
           </div>
-          <div class="text flex-2" [innerHTML]="board.name"></div>
+          <div class="text flex-2">
+            <span>{{ board.name }}</span>
+            <span class="small-text"> ({{ board.order }}/{{ boards.length }}) </span>
+          </div>
           <div class="next" (click)="startAnimationState('next', $event)">
             <i class="material-icons">arrow_forward</i>
           </div>

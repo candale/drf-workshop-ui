@@ -18,9 +18,13 @@ export class NewBoardComponent implements OnInit {
   addBoard() {
     this.api.addBoard({name: this.newBoardName}).subscribe(response => {
       if (this.router.url.includes('new-board')) {
-        this.router.navigate(['/task/list']);
+        this.goBack();
       }
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/task/list']);
   }
 
 }

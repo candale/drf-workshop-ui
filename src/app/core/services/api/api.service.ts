@@ -1,5 +1,5 @@
 
-import {filter, publishLast, refCount} from 'rxjs/operators';
+import {filter, publishLast, refCount, map, tap} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,6 +10,7 @@ import { Board } from '../../models/board.model';
 import { Item } from '../../models/item.model';
 import { ItemState } from '../../models/itemState.model';
 import { util } from '../../utils/util';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class ApiService {
@@ -72,7 +73,14 @@ export class ApiService {
 
   /** TODO:  */
   getTaskBoards() {
-    return this.taskBoards.pipe(filter(boards => boards !== null));
+    return this.taskBoards.pipe(
+      filter(board => board !== null), 
+      tap(boards => {
+        boards.forEach((board, index) => {
+          board.order = index + 1;
+        })
+      })
+    );
   }
 
   getBoardItems(boardId) {

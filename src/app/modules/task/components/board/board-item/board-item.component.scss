@@ -1,26 +1,12 @@
 @import './main';
 
 .item-container {
-  margin-bottom: 1em;
+  margin-bottom: 6px;
   border-right-style: solid;
   border-right-width: 10px;
   cursor: pointer;
 
-  .item-header {
-
-  }
-
-  .item-content {
-
-    .name {
-
-    }
-
-    .due-date {
-      margin-top: 0.5em;
-      min-height: 1em;
-    }
-  }
+  min-height: 2.5em;
 }
 
 .past-date {

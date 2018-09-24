@@ -16,7 +16,7 @@
       </mat-card-header>
       <mat-card-content class="item-content">
         <div class="name" [innerHTML]="item.name"></div>
-        <div class="due-date">
+        <div class="due-date" *ngIf="item.due_date">
           <div [class]="checkDate()" [innerHTML]="item.due_date | date"></div>
         </div>
       </mat-card-content>

@@ -22,12 +22,14 @@ import { DrawerComponent } from './drawer/drawer.component';
 })
 export class BoardComponent implements OnInit {
   board: Board = null;
+  boards: Array<Board> = [];
   noBoards: boolean = false;
   animationState: string = null;
 
   constructor(private api: ApiService, private drawer: MatBottomSheet) {
     this.api.getTaskBoards().subscribe(boards => {
       boards.length === 0 ? this.noBoards = true : this.noBoards = false;
+      this.boards = boards;
     });
     this.getCurrentBoard();
   }
@@ -70,10 +72,16 @@ export class BoardComponent implements OnInit {
   }
 
   _descending(a: Item, b: Item) {
+    if (b.priority === a.priority) {
+      return b.id - a.id;
+    }
     return b.priority - a.priority;
   }
 
   _ascending(a: Item, b: Item) {
+    if (a.priority === b.priority) {
+      return a.id - b.id;
+    }
     return a.priority - b.priority;
   }
 
