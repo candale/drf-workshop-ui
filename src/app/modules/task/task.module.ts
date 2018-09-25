@@ -11,6 +11,7 @@ import { Board } from '@core';
 import { AddEditTaskComponent } from './components/task/add-edit/add-edit.component';
 import { NewBoardComponent } from './components/board/new-board/new-board.component';
 import { DrawerComponent, ChangeNameDialog } from './components/board/drawer/drawer.component';
+import { DoneComponent } from './components/done/done.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { DrawerComponent, ChangeNameDialog } from './components/board/drawer/dra
     NewBoardComponent,
     DrawerComponent,
     ChangeNameDialog,
+    DoneComponent,
   ],
   entryComponents: [
     DrawerComponent,

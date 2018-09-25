@@ -47,10 +47,11 @@ export class AuthService {
       },
     ).pipe(publishLast(), refCount());
     call.subscribe(userData => {
-      userData['token'] = userData['key'];
-      delete userData['key'];
-      window.localStorage.setItem('user', JSON.stringify(userData));
-      this.user.next(new User(userData));
+      const _user = userData['user'];
+      _user['token'] = userData['key'];
+      const user = new User(_user);
+      window.localStorage.setItem('user', JSON.stringify(user));
+      this.user.next(user);
     });
     return call;
   }
@@ -59,5 +60,13 @@ export class AuthService {
     window.localStorage.removeItem('user');
     this.user.next(undefined);
     this.loggedIn.next(false);
+  }
+
+  public register(payload) {
+    const call = this.http.post(Settings.api.auth.register, payload).pipe(publishLast(), refCount());
+    call.subscribe(result => {
+      
+    });
+    return call;
   }
 }

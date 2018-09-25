@@ -14,3 +14,11 @@
 .warning-text {
   color: #b71c1c !important;
 }
+
+.errors {
+  .error {
+      padding: 5px 0;
+      color: red;
+  }
+  margin-bottom: 1em;
+}

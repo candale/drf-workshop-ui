@@ -1,14 +1,14 @@
 <mat-toolbar class="navigator" [class.visible]="visible | async">
   <div class="nav flex-row flex-around">
-    <div class="task" (click)="changeRoute('task/list')"
+    <div class="task" (click)="changeRoute('/task/list')"
       [ngClass]="{'active': active.includes('task')}">
       <i class="material-icons">done_all</i>
     </div>
-    <div class="menu" (click)="changeRoute('menu')"
+    <div class="menu" (click)="changeRoute('/menu')"
       [ngClass]="{'active': active.includes('menu')}">
       <i class="material-icons">settings</i>
     </div>
-    <div class="list" (click)="changeRoute('listings')"
+    <div class="list" (click)="changeRoute('/listings')"
       [ngClass]="{'active': active.includes('listings')}">
       <i class="material-icons">list</i>
     </div>

@@ -1,4 +1,7 @@
 <mat-card>
     <h2>Menu</h2>
+    <button class="done" mat-raised-button color="primary" (click)="goToDone()">Done tasks</button>
+    <button class="admin" mat-raised-button color="primary" 
+        (click)="goToAdmin()" *ngIf="user.is_staff && user.is_superuser">Admin panel</button>
     <button class="logout" mat-raised-button color="primary" (click)="logout()">Logout</button>
 </mat-card>

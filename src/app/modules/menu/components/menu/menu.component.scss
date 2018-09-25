@@ -8,9 +8,11 @@ mat-card {
         margin-top: 2em;
     }
 
-    button.logout {
-        font-size: 22px;
-        padding: 10px 20px;
+    button {
+        width: 100%;
+        font-size: 18px;
+        padding: 5px 15px;
         text-transform: uppercase;
+        margin: 0.5em auto;
     }
 }

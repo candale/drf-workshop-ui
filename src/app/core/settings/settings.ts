@@ -1,17 +1,22 @@
 import { environment } from '@environment';
 
-const baseUrl = environment.production ? 'https://mgr-api.florin.me/api/' : 'http://localhost:8000/api/';
+const baseUrl = environment.production ? 'https://mgr-api.florin.me/' : 'http://localhost:8000/';
+const baseApiUrl = baseUrl + 'api/';
 
 export const Settings = {
+  baseUrl: baseUrl,
+  baseAdmin: `${baseUrl}admin/`,
   api: {
-    base: baseUrl,
+    base: `${baseApiUrl}`,
     auth: {
-      login: `${baseUrl}rest-auth/login/`,
-      user: `${baseUrl}rest-auth/user/`,
+      register: `${baseApiUrl}arest-auth/registration/`,
+      login: `${baseApiUrl}rest-auth/login/`,
+      user: `${baseApiUrl}rest-auth/user/`,
     },
     tasks: {
-      boards: `${baseUrl}task/boards/`,
-      items: `${baseUrl}task/items/`,
+      boards: `${baseApiUrl}task/boards/`,
+      items: `${baseApiUrl}task/items/`,
+      done_items: `${baseApiUrl}task/items/done_tasks/`,
     }
   }
 };

@@ -77,6 +77,14 @@ export class ApiService {
     );
   }
 
+  getDoneTasks() {
+    const call = this.http.get(`${Settings.api.tasks.done_items}`).pipe(publishLast(), refCount());
+    call.subscribe(result => {
+      //
+    });
+    return call;
+  }
+
   getBoardItems(boardId) {
     return this.http.get(`${Settings.api.tasks.items}?board=${+boardId}`);
   }
@@ -186,6 +194,7 @@ export class ApiService {
       this.taskBoards.next(boards);
       if (boards.length) {
         this.currentBoard.next(boards[0]);
+        this._newBoard(boards[0]);
       }
       else {
         this.currentBoard.next(undefined);

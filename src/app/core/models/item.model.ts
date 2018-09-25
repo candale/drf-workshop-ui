@@ -14,6 +14,8 @@ export class Item {
   due_date: Date;
   priority: Priority;
   hidden: Boolean;
+  done: Boolean;
+  deleted: Boolean;
   board: number;
 
   constructor(data) {
@@ -24,6 +26,8 @@ export class Item {
     this.priority = data.priority;
     this.board = data.board;
     this.hidden = false;
+    this.done = false;
+    this.deleted = false;
   }
 
   get value() {

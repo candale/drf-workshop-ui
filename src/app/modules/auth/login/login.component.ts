@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from '@core';
+import { AuthService, util } from '@core';
 
 const login = {
   login: "Login",
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
@@ -45,15 +45,19 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(data => {
       this.isSubmitting = false;
       setTimeout(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/task/list']);
       }, 1);
     }, error => {
-      const formError = error.error;
+      this.errors = util.parseErrors(error);
       this.isSubmitting = false;
     });
   }
 
   resetErrors() {
     this.errors.length = 0;
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

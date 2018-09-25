@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@core';
+import { AuthService, Settings } from '@core';
+import { Router } from '@angular/router';
+import { User } from '@core';
 
 @Component({
   selector: 'app-menu',
@@ -7,14 +9,27 @@ import { AuthService } from '@core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
-  constructor(private auth: AuthService) { }
+  user: User;
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.auth.user.subscribe(user => {
+      if(user) {
+        this.user = new User(user);
+      }
+    });
   }
 
   logout() {
     this.auth.logout();
+  }
+
+  goToDone() {
+    this.router.navigate(['/task/done']);
+  }
+
+  goToAdmin() {
+    window.location.href = Settings.baseAdmin;
   }
 
 }

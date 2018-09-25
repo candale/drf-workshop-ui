@@ -45,8 +45,10 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
       let msg = '';
       if (event.fromState === kfStrings[0]) {
         msg = '1 item deleted';
+        this.item.deleted = true;
       } else if (event.fromState === kfStrings[1]) {
         msg = '1 item marked DONE';
+        this.item.done = true;
       }
       this.openSnackBar(msg);
     }
@@ -59,7 +61,11 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
     });
     snackBarRef.afterDismissed().subscribe(() => {
       if (this.item.hidden === true) {
-        this.api.removeItem(this.item.id);
+        if (this.item.deleted) {
+          this.api.removeItem(this.item.id);
+        } else if (this.item.done) {
+          this.api.markItemAsDone(this.item.id);
+        }
       }
     });
   }
@@ -85,13 +91,4 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
     }
     return 'normal';
   }
-
-  markDone() {
-
-  }
-
-  remove() {
-
-  }
-
 }

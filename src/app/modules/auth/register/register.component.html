@@ -1,0 +1,37 @@
+<mat-card>
+
+  <form class="form-container" [formGroup]="registerForm" (ngSubmit)="submitForm()" [class.loading]="isSubmitting">
+    <div>
+      <h3>Register</h3>
+    </div>
+    <mat-form-field>
+      <mat-label for="registerForm_first_name">First name</mat-label>
+      <input matInput formControlName="first_name" id="registerForm_first_name" type="text" />
+    </mat-form-field>
+    <div class="distancer"></div>
+    <mat-form-field>
+      <mat-label for="registerForm_last_name">Last name</mat-label>
+      <input matInput formControlName="last_name" id="registerForm_last_name" type="text" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="registerForm_email">Email</mat-label>
+      <input matInput formControlName="email" id="registerForm_email" type="email" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="registerForm_password">Password</mat-label>
+      <input matInput formControlName="password1" id="registerForm_password" class="validate" type="password" minlength="6" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="registerForm_password2">Confirm password</mat-label>
+      <input matInput formControlName="password2" id="registerForm_password2" class="validate" type="password"
+        minlength="6" />
+    </mat-form-field>
+    <div class="errors" *ngIf="errors.length">
+      <div class="error" *ngFor="let error of errors">{{ error }}</div>
+    </div>
+    <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+    <div class="login">
+      <div (click)="goToLogin()">Login</div>
+    </div>
+  </form>
+</mat-card>

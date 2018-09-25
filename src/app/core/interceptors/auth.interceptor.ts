@@ -13,6 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let newReq: HttpRequest<any> = req;
+    if ([Settings.api.auth.login, Settings.api.auth.register].find(i => i === req.url)) {
+      return next.handle(newReq);
+    }
     if (req.url.includes(Settings.api.base)) {
       let user = window.localStorage.getItem('user');
       if (user) {

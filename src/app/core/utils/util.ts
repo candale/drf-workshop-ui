@@ -40,6 +40,22 @@ class Util {
     }
     return true;
   }
+
+  parseErrors(error) {
+    let errors = [];
+    if (error.error instanceof Object) {
+      for (let property in error.error) {
+        if (error.error[property] instanceof Array) {
+          errors = errors.concat(error.error[property]);
+        } else {
+          errors.push(error.error[property]);
+        }
+      }
+    } else {
+      errors = error.error;
+    }
+    return errors;
+  }
 }
 
 export const util = new Util();
