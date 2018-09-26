@@ -4,6 +4,7 @@
 
 ### General
 * [x] PWA Support
+* [x] Authentication support - Login & Register
 * [ ] Add control for Add to homescreen (https://github.com/filrak/add-to-homescreen-control)
 
 ### Board 
