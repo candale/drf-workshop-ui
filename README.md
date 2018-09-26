@@ -5,6 +5,7 @@
 ### General
 * [x] PWA Support
 * [x] Authentication support - Login & Register
+* [ ] Add user settings - Order by (priority, date) / Requirement state for task fields
 * [ ] Add control for Add to homescreen (https://github.com/filrak/add-to-homescreen-control)
 
 ### Board 
