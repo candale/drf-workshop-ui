@@ -2,6 +2,10 @@
 
 ## Features
 
+### General
+* [x] PWA Support
+* [ ] Add control for Add to homescreen (https://github.com/filrak/add-to-homescreen-control)
+
 ### Board 
 * [x] Access board drawer by long press on board name
 * [x] Add new board
