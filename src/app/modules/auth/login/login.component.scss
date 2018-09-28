@@ -27,5 +27,6 @@ mat-card {
         font-weight: bold;
         font-size: 20px;
         color: #{mat-color($app-primary, 500)};
+        cursor: pointer;
     }
 }

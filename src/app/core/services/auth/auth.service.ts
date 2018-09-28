@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { Settings } from '../../settings/settings';
 import { filter, publishLast, refCount } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   user: BehaviorSubject<User> = new BehaviorSubject(null);
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private snackbar: MatSnackBar) {
     const user = window.localStorage.getItem('user');
     if (user) {
       this.user.next(new User(JSON.parse(user)));
@@ -52,6 +53,7 @@ export class AuthService {
       const user = new User(_user);
       window.localStorage.setItem('user', JSON.stringify(user));
       this.user.next(user);
+      this.showWelcomeSnackbar();
     });
     return call;
   }
@@ -68,5 +70,13 @@ export class AuthService {
       
     });
     return call;
+  }
+
+  private showWelcomeSnackbar() {
+    this.snackbar.open('Welcome! Check Menu > Info for more details on how to use the app.', 'Ok', {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+    });
   }
 }

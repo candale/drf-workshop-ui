@@ -9,7 +9,7 @@ export const Settings = {
   api: {
     base: `${baseApiUrl}`,
     auth: {
-      register: `${baseApiUrl}arest-auth/registration/`,
+      register: `${baseApiUrl}rest-auth/registration/`,
       login: `${baseApiUrl}rest-auth/login/`,
       user: `${baseApiUrl}rest-auth/user/`,
     },

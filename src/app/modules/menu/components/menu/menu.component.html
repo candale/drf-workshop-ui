@@ -1,5 +1,6 @@
 <mat-card>
     <h2>Menu</h2>
+    <button class="info" mat-raised-button color="accent" routerLink="/menu-info">Info</button>
     <button class="done" mat-raised-button color="primary" (click)="goToDone()">Done tasks</button>
     <button class="admin" mat-raised-button color="primary" 
         (click)="goToAdmin()" *ngIf="user.is_staff && user.is_superuser">Admin panel</button>
