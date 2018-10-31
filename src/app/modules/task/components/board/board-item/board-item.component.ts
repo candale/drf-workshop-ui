@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Inject } from '@angular/core';
 import { trigger, keyframes, animate, transition, state, style } from '@angular/animations';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { kf, kfStrings } from './keyframes';
@@ -24,7 +24,12 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
   actionStack: Array<any> = [];
   undoCalled: Boolean = false;
 
-  constructor(public snackBar: MatSnackBar, private api: ApiService, private router: Router) { }
+  constructor(
+    public snackBar: MatSnackBar, 
+    private api: ApiService, 
+    private router: Router,
+    public dialog: MatDialog,
+    ) { }
 
   ngOnInit() {
   }
@@ -80,8 +85,23 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  checkDate() {
+  openItemEdit(event) {
+    this.api.getTaskBoards().subscribe(boards => {
+      boards = boards.filter(item => item.id !== this.item.board);
+      const dialogRef = this.dialog.open(MoveItemDialog, {
+        width: '300px',
+        data: { boards: boards }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        if (result) {
+          this.api.moveItem(result, this.item.id);
+        }
+      });
+    })
+  }
 
+  checkDate() {
     if (this.item.due_date) {
       if (util.parseDate(this.item.due_date) === util.parseDate(new Date())) {
         return 'today';
@@ -90,5 +110,24 @@ export class BoardItemComponent implements OnInit, AfterViewInit {
       }
     }
     return 'normal';
+  }
+}
+
+export interface DialogData {
+  boards: number;
+}
+
+@Component({
+  selector: 'move-item-dialog',
+  templateUrl: 'move-item-dialog.html',
+})
+export class MoveItemDialog {
+  selectedBoard;
+  constructor(
+    public dialogRef: MatDialogRef<MoveItemDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -9,7 +9,8 @@
       (swiperight)="startAnimationState('slideOutRight', $event)"
       data-mc-options='{"touchAction": "pan-y"}'
       [style.border-right-color]="getColor()"
-      (click)="edit()">
+      (press)="openItemEdit($event)"
+      (tap)="edit()">
       
       <mat-card-header class="item-header">
     

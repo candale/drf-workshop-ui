@@ -4,6 +4,10 @@ declare var Hammer: any;
 
 export class CustomHammerConfig extends HammerGestureConfig {
 
+  overrides = <any> {
+    press: { time: 500 }
+  }
+
   buildHammer(element: HTMLElement) {
     let options = {};
 

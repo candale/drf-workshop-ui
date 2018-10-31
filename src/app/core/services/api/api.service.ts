@@ -133,6 +133,16 @@ export class ApiService {
     return obs;
   }
 
+  moveItem(board, id) {
+    const obs = this.http.patch(`${Settings.api.tasks.items}${+id}/`, {board: board}).pipe(publishLast(),refCount(),);
+    obs.subscribe(resp => {
+      const index = this.currentBoard.getValue().items.findIndex(item => item.id === +id);
+      this.currentBoard.getValue().items.splice(index, 1);
+      this.currentBoard.next(this.currentBoard.getValue());
+    });
+    return obs;
+  }
+
   editItem(payload, id) {
     if (payload.due_date) {
       payload.due_date = util.parseDate(payload.due_date);

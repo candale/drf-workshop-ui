@@ -65,5 +65,4 @@ export class ChangeNameDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
