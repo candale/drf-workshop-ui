@@ -24,6 +24,7 @@
 * [x] Swipe right - mark item as done
 * [x] Undo swipe
 * [x] Show done tasks
+* [ ] Move task to another board (longpress functionality)
 * [ ] List of items (checkable items, like a todo list)
 * [ ] Add to Calendar (*Google Calendar API Integration*)
 * [ ] Write the texts using Speech Recognition API
