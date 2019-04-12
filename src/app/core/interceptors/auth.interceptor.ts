@@ -17,13 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(newReq);
     }
     if (req.url.includes(Settings.api.base)) {
-      let user = window.localStorage.getItem('user');
-      if (user) {
-        user = JSON.parse(user);
+      let token = window.localStorage.getItem('token');
+      if (token) {
         newReq = req.clone({
-          headers: req.headers.set('Authorization', `Token ${user['token']}`)
+          headers: req.headers.set('Authorization', `Token ${token}`)
         });
-      }
+    }
     }
     return next.handle(newReq);
   }

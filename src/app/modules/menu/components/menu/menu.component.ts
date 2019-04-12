@@ -13,11 +13,7 @@ export class MenuComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.auth.user.subscribe(user => {
-      if(user) {
-        this.user = new User(user);
-      }
-    });
+
   }
 
   logout() {

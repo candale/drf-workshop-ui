@@ -6,7 +6,7 @@ import { AuthService, util } from '@core';
 
 const login = {
   login: "Login",
-  email: "Email",
+  email: "Username",
   error: "Please provide a valid email address.",
   password: "Password",
   start: "Get Started"
